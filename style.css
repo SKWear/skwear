@@ -1,0 +1,57 @@
+/* GENEL STİLLER */
+* { box-sizing: border-box; }
+body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: #ffffff; overflow-x: hidden; }
+
+/* DUYURU BANDI */
+.announcement-bar { background: #ff3e6c; color: white; text-align: center; padding: 12px; font-size: 13px; font-weight: bold; letter-spacing: 1px; }
+
+/* SABİT NAVBAR */
+.main-header { position: sticky; top: 0; background: white; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #f0f0f0; z-index: 1000; }
+.logo { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; letter-spacing: 3px; color: #1a1a1a; }
+.navbar a { text-decoration: none; color: #444; margin: 0 15px; font-size: 13px; font-weight: 700; transition: 0.3s; }
+.navbar a:hover { color: #ff3e6c; }
+
+/* ARAÇLAR */
+.search-bar { padding: 8px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
+.cart-btn { background: none; border: none; font-size: 20px; cursor: pointer; position: relative; }
+.cart-count { background: #ff3e6c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; position: absolute; top: -5px; right: -10px; }
+
+/* HERO BÖLÜMÜ (3 MODEL) */
+.hero-container { display: flex; height: 85vh; flex-wrap: wrap; }
+.hero-item { flex: 1; min-width: 33.33%; height: 100%; position: relative; background-size: cover; background-position: center; transition: 0.6s; }
+.model-1 { background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1000&auto=format&fit=crop'); }
+.model-2 { background-image: url('https://images.unsplash.com/photo-1539109132381-31a1ee02d0d2?q=80&w=1000&auto=format&fit=crop'); }
+.model-3 { background-image: url('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop'); }
+
+.hero-item:hover { flex: 1.2; } /* Hover efekti: Genişleme */
+
+.overlay { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); text-align: center; color: white; width: 100%; }
+.overlay h2 { font-size: 40px; margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+.shop-btn { background: white; color: black; border: none; padding: 15px 35px; margin-top: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.shop-btn:hover { background: #ff3e6c; color: white; }
+
+/* ÜRÜN KARTLARI */
+.product-grid { padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+.product-card { text-align: center; transition: 0.3s; }
+.product-img-wrapper { position: relative; overflow: hidden; background: #f9f9f9; }
+.product-card img { width: 100%; height: 400px; object-fit: cover; transition: 0.5s; }
+.product-card:hover img { transform: scale(1.05); }
+
+.price { font-size: 18px; font-weight: bold; }
+.price del { color: #999; font-size: 14px; margin-right: 10px; }
+.price span { color: #ff3e6c; }
+
+.order-buttons { display: flex; flex-direction: column; gap: 10px; padding: 10px; }
+.add-to-cart { background: #000; color: #fff; border: none; padding: 10px; cursor: pointer; }
+.whatsapp-buy { background: #25d366; color: #fff; text-decoration: none; padding: 10px; font-size: 14px; font-weight: bold; }
+
+/* MOBİL TASARIM */
+.mobile-bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: none; justify-content: space-around; padding: 12px; border-top: 1px solid #eee; z-index: 1001; }
+
+@media (max-width: 768px) {
+    .hero-container { height: auto; }
+    .hero-item { min-width: 100%; height: 500px; }
+    .mobile-bottom-nav { display: flex; }
+    .main-header { padding: 15px 2%; }
+    .navbar { display: none; }
+}
