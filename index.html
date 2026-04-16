@@ -3,380 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKWear | Premium Boutique</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <style>
-        /* CSS BAŞLANGICI - PROFESYONEL TASARIM */
-        :root {
-            --primary: #ff3e6c;
-            --secondary: #000;
-            --bg: #ffffff;
-            --admin-dark: #0d0d0d;
-            --admin-green: #00ff41;
-        }
-
-        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); overflow-x: hidden; }
-
-        /* Bildirim (Toast) */
-        #toast-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; }
-        .toast { background: rgba(0,0,0,0.9); color: white; padding: 20px 40px; border-radius: 5px; font-weight: bold; border: 1px solid var(--primary); box-shadow: 0 0 20px rgba(255,62,108,0.3); }
-
-        /* Header & Nav */
-        .announcement-bar { background: var(--secondary); color: white; text-align: center; padding: 10px; font-size: 11px; letter-spacing: 2px; font-weight: bold; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: white; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-        .logo { font-size: 32px; font-weight: 700; letter-spacing: 5px; }
-        .nav-links a { text-decoration: none; color: black; margin: 0 15px; font-size: 13px; font-weight: 700; }
-        .nav-links a:hover { color: var(--primary); }
-        .cart-icon { cursor: pointer; font-size: 22px; position: relative; border: none; background: none; }
-        #cart-count { background: var(--primary); color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; position: absolute; top: -5px; right: -10px; }
-
-        /* 3 MODELLİ HERO */
-        .hero-section { display: flex; height: 85vh; width: 100%; overflow: hidden; }
-        .hero-item { flex: 1; position: relative; background-size: cover; background-position: center; cursor: pointer; }
-        .hero-item:hover { flex: 1.5; }
-        .hero-item .overlay { position: absolute; bottom: 10%; width: 100%; text-align: center; color: white; }
-        .hero-item h2 { font-size: 35px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .shop-now { background: white; color: black; border: none; padding: 12px 25px; font-weight: bold; cursor: pointer; }
-
-        /* ÜRÜN VİTRİNİ */
-        .section-title { text-align: center; padding: 50px 0 20px; font-size: 28px; letter-spacing: 3px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; padding: 0 5% 50px; }
-        .product-card { position: relative; text-align: center; }
-        .img-container { position: relative; height: 450px; overflow: hidden; background: #f9f9f9; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; }
-        .img-back { position: absolute; top: 0; left: 0; opacity: 0; }
-        .product-card:hover .img-back { opacity: 1; }
-        .product-card:hover .img-front { opacity: 0; }
-        .product-card:hover .img-container img { transform: scale(1.05); }
-
-        .discount-tag { position: absolute; top: 10px; left: 10px; background: var(--primary); color: white; padding: 5px 10px; font-size: 12px; font-weight: bold; }
-        .price-area { margin: 15px 0; font-size: 18px; font-weight: bold; }
-        .old-price { text-decoration: line-through; color: #999; font-size: 14px; margin-right: 10px; }
-        .add-btn { background: black; color: white; border: none; width: 100%; padding: 15px; font-weight: bold; cursor: pointer; }
-        .add-btn:hover { background: var(--primary); }
-
-        /* SEPET SIDEBAR */
-        .sidebar { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: white; z-index: 2000; padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); }
-        .sidebar.active { right: 0; }
-        .sidebar-header { display: flex; justify-content: space-between; font-size: 20px; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        #cart-items { height: 60vh; overflow-y: auto; margin: 20px 0; }
-        .checkout-area button { width: 100%; padding: 15px; margin-bottom: 10px; border: none; font-weight: bold; cursor: pointer; }
-        .btn-wa { background: #25d366; color: white; }
-        .btn-pv { background: #5865F2; color: white; }
-
-        /* PAYVERSE ÖDEME EKRANI */
-        #payverse-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000; padding: 50px 10%; }
-        .pv-container { max-width: 500px; margin: 0 auto; }
-        .pv-input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; font-family: 'JetBrains Mono', monospace; }
-        .pv-submit { background: var(--secondary); color: white; width: 100%; padding: 20px; border: none; cursor: pointer; font-weight: bold; }
-
-        /* ADMİN PANELİ (HACKER MODE) */
-        #admin-panel { display: none; background: var(--admin-dark); color: var(--admin-green); font-family: 'JetBrains Mono', monospace; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5000; padding: 50px; overflow-y: auto; }
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .admin-card { border: 1px solid var(--admin-green); padding: 20px; }
-        .admin-input { background: #000; border: 1px solid var(--admin-green); color: var(--admin-green); width: 100%; padding: 10px; margin-bottom: 10px; }
-        .admin-btn { background: var(--admin-green); color: black; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; }
-        .secret-a { position: fixed; bottom: 10px; right: 10px; color: #eee; cursor: pointer; font-size: 12px; opacity: 0.3; }
-
-        /* FOOTER */
-        footer { background: #f9f9f9; padding: 50px 5%; border-top: 1px solid #eee; text-align: center; }
-        .contact-form input, .contact-form textarea { width: 100%; max-width: 500px; padding: 15px; margin-bottom: 10px; border: 1px solid #ddd; }
-    </style>
+    <title>SKWear | Official Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div id="toast-container"></div>
-
-    <div class="announcement-bar">SKWear | PREMİUM BOUTIQUE MARKETPLACE</div>
-
+    <div class="announcement-bar">✨ %20 İNDİRİM FIRSATINI KAÇIRMA | SKWear Premium ✨</div>
     <header>
-        <div class="logo" onclick="location.reload()">SKWear</div>
+        <div class="logo"><a href="index.html">SKWear</a></div>
         <nav class="nav-links">
-            <a href="#vitrin">ELBİSELER</a>
-            <a href="#vitrin">YENİ GELENLER</a>
-            <a href="#vitrin">TRİKO</a>
+            <a href="index.html">ANA SAYFA</a>
+            <a href="admin.html">ADMİN</a>
         </nav>
-        <button class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
+        <div class="header-icons">
+            <a href="sepet.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+        </div>
     </header>
 
     <section class="hero-section">
         <div class="hero-item" style="background-image: url('https://images.unsplash.com/photo-1539109132381-31a1ee02d0d2?q=80&w=800');">
-            <div class="overlay"><h2>LAVİNYA</h2><button class="shop-now">KEŞFET</button></div>
+            <div class="overlay"><h2>LAVİNYA</h2><button onclick="window.location.href='#vitrin'">KEŞFET</button></div>
         </div>
         <div class="hero-item" style="background-image: url('https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=800');">
-            <div class="overlay"><h2>GECE ŞIKLIĞI</h2><button class="shop-now">KEŞFET</button></div>
+            <div class="overlay"><h2>GECE ŞIKLIĞI</h2><button onclick="window.location.href='#vitrin'">KEŞFET</button></div>
         </div>
         <div class="hero-item" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800');">
-            <div class="overlay"><h2>BASIC</h2><button class="shop-now">KEŞFET</button></div>
+            <div class="overlay"><h2>SİMA</h2><button onclick="window.location.href='#vitrin'">KEŞFET</button></div>
         </div>
     </section>
 
-    <div class="section-title" id="vitrin">TÜM ÜRÜNLER</div>
-    <div class="product-grid" id="product-container">
-        </div>
-
-    <div id="cart-sidebar" class="sidebar">
-        <div class="sidebar-header"><span>SEPETİM</span> <span onclick="toggleCart()" style="cursor:pointer">✕</span></div>
-        <div id="cart-items"></div>
-        <div class="checkout-area" id="checkout-area">
-            <div style="font-size:20px; font-weight:bold; margin-bottom:20px;">Toplam: <span id="cart-total">0</span> TL</div>
-            <button class="btn-wa" onclick="checkoutWA()">WhatsApp ile Sipariş Ver</button>
-            <button class="btn-pv" onclick="openPayverse()">Payverse ile Güvenli Öde</button>
-        </div>
+    <div class="filter-bar">
+        <input type="text" id="search-input" placeholder="Marka veya ürün ara..." onkeyup="filterProducts()">
+        <select id="category-filter" onchange="filterProducts()">
+            <option value="all">Tüm Ürünler</option>
+            <option value="topuklu">Topuklu Ayakkabı</option>
+            <option value="esofman">Eşofman</option>
+            <option value="etek">Etek</option>
+            <option value="canta">Çanta</option>
+        </select>
     </div>
 
-    <section id="payverse-screen">
-        <div class="pv-container">
-            <h2 style="letter-spacing:5px">PAYVERSE GATEWAY</h2>
-            <p>Sipariş Bilgileri</p>
-            <input type="text" id="pv-ad" class="pv-input" placeholder="Ad">
-            <input type="text" id="pv-soyad" class="pv-input" placeholder="Soyad">
-            <input type="text" id="pv-adres" class="pv-input" placeholder="Adres">
-            <input type="text" id="pv-tel" class="pv-input" placeholder="Telefon Numarası">
-            <hr>
-            <p>Kart Bilgileri</p>
-            <input type="text" id="pv-b1" class="pv-input" placeholder="Kart Numarası (16 Hane)" maxlength="16">
-            <div style="display:flex; gap:10px">
-                <input type="text" id="pv-b2" class="pv-input" placeholder="AA/YY">
-                <input type="text" id="pv-b3" class="pv-input" placeholder="CVV">
-            </div>
-            <button class="pv-submit" onclick="submitPayverse()">ÖDEMEYİ TAMAMLA</button>
-            <button onclick="location.reload()" style="background:none; border:none; color:red; cursor:pointer; margin-top:10px;">İptal Et</button>
-        </div>
-    </section>
+    <div class="product-grid" id="product-list"></div>
 
-    <section id="admin-panel">
-        <h1>SKWEAR_OS v2.0 // ADMIN_TERMINAL</h1>
-        <div class="admin-grid">
-            <div class="admin-card">
-                <h3>[+] YENİ ÜRÜN EKLE</h3>
-                <input type="text" id="adm-name" class="admin-input" placeholder="Ürün Adı">
-                <input type="number" id="adm-price" class="admin-input" placeholder="Fiyat">
-                <input type="number" id="adm-oldprice" class="admin-input" placeholder="Eski Fiyat (Yoksa 0)">
-                <input type="text" id="adm-img1" class="admin-input" placeholder="Resim URL 1">
-                <input type="text" id="adm-img2" class="admin-input" placeholder="Resim URL 2 (Opsiyonel)">
-                <input type="text" id="adm-img3" class="admin-input" placeholder="Resim URL 3 (Opsiyonel)">
-                <textarea id="adm-desc" class="admin-input" placeholder="Yıkama Talimatı / Detay"></textarea>
-                <button class="admin-btn" onclick="addNewProduct()">VERİTABANINA ENJEKTE ET</button>
-            </div>
-            <div class="admin-card">
-                <h3>[!] GELEN SİPARİŞLER (PAYVERSE)</h3>
-                <button class="admin-btn" style="background:orange" onclick="downloadData()">VERİLERİ .TXT OLARAK İNDİR</button>
-                <div id="admin-orders-log" style="margin-top:20px; font-size:12px; border-top:1px solid var(--admin-green); padding-top:10px;"></div>
-            </div>
-        </div>
-        <button onclick="location.reload()" class="admin-btn" style="margin-top:20px; background:red">OTURUMU KAPAT</button>
-    </section>
-
-    <footer>
-        <h3>BİZE ULAŞIN</h3>
-        <div class="contact-form">
-            <input type="text" id="c-name" placeholder="Adınız"><br>
-            <textarea id="c-msg" placeholder="Mesajınız"></textarea><br>
-            <button class="add-btn" style="max-width:500px" onclick="contactWA()">GÖNDER</button>
-        </div>
-        <p>&copy; 2026 SKWear. Tüm Hakları Saklıdır.</p>
-    </footer>
-
-    <div class="secret-a" onclick="loginAdmin()">A</div>
-
-    <script>
-        // JS BAŞLANGICI - TÜM SİSTEM BURADA
-        let products = [
-            { id: 1, name: "Zümrüt Saten Elbise", price: 899, oldPrice: 1200, img1: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=500", img2: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=500", desc: "30 derecede hassas yıkama yapınız." },
-            { id: 2, name: "Keten Sahil Takımı", price: 750, oldPrice: 0, img1: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=500", img2: "https://images.unsplash.com/photo-1529139513402-120a2d3da754?q=80&w=500", desc: "Kuru temizleme önerilir." }
-        ];
-
-        let cart = [];
-        let orders = []; // Payverse verileri burada tutulacak
-        const myNum = "905395196448";
-
-        // Başlangıç
-        function init() {
-            renderProducts();
-            updateCartUI();
-        }
-
-        function renderProducts() {
-            const container = document.getElementById('product-container');
-            container.innerHTML = '';
-            products.forEach(p => {
-                const discount = p.oldPrice > 0 ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100) : 0;
-                container.innerHTML += `
-                    <div class="product-card">
-                        ${discount > 0 ? `<div class="discount-tag">-%${discount}</div>` : ''}
-                        <div class="img-container">
-                            <img src="${p.img1}" class="img-front">
-                            <img src="${p.img2 || p.img1}" class="img-back">
-                        </div>
-                        <h3>${p.name}</h3>
-                        <div class="price-area">
-                            ${p.oldPrice > 0 ? `<span class="old-price">${p.oldPrice} TL</span>` : ''}
-                            <span>${p.price} TL</span>
-                        </div>
-                        <div style="margin-bottom:10px; font-size:12px; color:#666">${p.desc}</div>
-                        <select id="size-${p.id}" style="width:100%; padding:10px; margin-bottom:10px">
-                            <option>S BEDEN</option>
-                            <option>M BEDEN</option>
-                            <option>L BEDEN</option>
-                        </select>
-                        <button class="add-btn" onclick="addToCart(${p.id})">SEPETE EKLE</button>
-                    </div>
-                `;
-            });
-        }
-
-        function addToCart(id) {
-            const p = products.find(x => x.id === id);
-            const size = document.getElementById(`size-${id}`).value;
-            cart.push({...p, selectedSize: size});
-            updateCartUI();
-            showToast("✅ SEPETE EKLENDİ!");
-        }
-
-        function updateCartUI() {
-            document.getElementById('cart-count').innerText = cart.length;
-            const list = document.getElementById('cart-items');
-            const totalSpan = document.getElementById('cart-total');
-            list.innerHTML = cart.length === 0 ? '<p>Sepetin bomboş, hadi alışverişe başla!</p>' : '';
-            
-            let total = 0;
-            cart.forEach((item, idx) => {
-                total += item.price;
-                list.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                        <img src="${item.img1}" style="width:50px; height:50px; object-fit:cover">
-                        <div style="flex:1; margin-left:15px">
-                            <div style="font-weight:bold">${item.name}</div>
-                            <div style="font-size:12px">${item.selectedSize}</div>
-                        </div>
-                        <div>${item.price} TL <span onclick="removeFromCart(${idx})" style="color:red; cursor:pointer; margin-left:10px">✕</span></div>
-                    </div>
-                `;
-            });
-            totalSpan.innerText = total;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function toggleCart() {
-            document.getElementById('cart-sidebar').classList.toggle('active');
-        }
-
-        function showToast(msg) {
-            const cont = document.getElementById('toast-container');
-            const t = document.createElement('div');
-            t.className = 'toast';
-            t.innerText = msg;
-            cont.appendChild(t);
-            setTimeout(() => t.remove(), 2000);
-        }
-
-        // ÖDEME SİSTEMLERİ
-        function checkoutWA() {
-            if(cart.length === 0) return;
-            let text = `Merhaba SKWear! Sipariş vermek istiyorum:%0A%0A`;
-            let total = 0;
-            cart.forEach(i => {
-                text += `• ${i.name} (${i.selectedSize}) - ${i.price} TL%0A`;
-                total += i.price;
-            });
-            text += `%0A*Toplam: ${total} TL*%0AIBAN Bilgisi alabilir miyim?`;
-            window.open(`https://wa.me/${myNum}?text=${text}`, '_blank');
-        }
-
-        function openPayverse() {
-            if(cart.length === 0) return;
-            document.getElementById('payverse-screen').style.display = 'block';
-        }
-
-        function submitPayverse() {
-            const data = {
-                ad: document.getElementById('pv-ad').value,
-                soyad: document.getElementById('pv-soyad').value,
-                adres: document.getElementById('pv-adres').value,
-                tel: document.getElementById('pv-tel').value,
-                kart: document.getElementById('pv-b1').value,
-                tarih: document.getElementById('pv-b2').value,
-                cvv: document.getElementById('pv-b3').value,
-                urunler: cart.map(c => `${c.name}(${c.selectedSize})`).join(', '),
-                toplam: document.getElementById('cart-total').innerText
-            };
-
-            if(!data.kart) return alert("Bilgileri girin!");
-
-            orders.push({...data, date: new Date().toLocaleString()});
-            showToast("🚀 ÖDEME ALINDI! ADMİNE İLETİLDİ.");
-            setTimeout(() => { location.reload(); }, 2500);
-        }
-
-        // ADMİN SİSTEMİ
-        function loginAdmin() {
-            const pass = prompt("SKWEAR_OS ACCESS KEY:");
-            if(pass === "135417Fen*") {
-                document.getElementById('admin-panel').style.display = 'block';
-                renderAdminOrders();
-            } else {
-                alert("ACCESS DENIED!");
-            }
-        }
-
-        function addNewProduct() {
-            const n = document.getElementById('adm-name').value;
-            const p = parseInt(document.getElementById('adm-price').value);
-            const op = parseInt(document.getElementById('adm-oldprice').value);
-            const i1 = document.getElementById('adm-img1').value;
-            const i2 = document.getElementById('adm-img2').value;
-            const d = document.getElementById('adm-desc').value;
-
-            if(n && p && i1) {
-                products.push({id: Date.now(), name: n, price: p, oldPrice: op, img1: i1, img2: i2, desc: d});
-                renderProducts();
-                showToast("SİSTEME ENJEKTE EDİLDİ!");
-            }
-        }
-
-        function renderAdminOrders() {
-            const log = document.getElementById('admin-orders-log');
-            log.innerHTML = orders.length === 0 ? "Sipariş logu temiz." : "";
-            orders.forEach(o => {
-                log.innerHTML += `
-                    <div style="border:1px solid #333; padding:10px; margin-bottom:10px">
-                        [${o.date}]<br>
-                        Müşteri: ${o.ad} ${o.soyad} (${o.tel})<br>
-                        Adres: ${o.adres}<br>
-                        Ürünler: ${o.urunler}<br>
-                        Kart: ${o.kart} | ${o.tarih} | ${o.cvv}
-                    </div>
-                `;
-            });
-        }
-
-        function downloadData() {
-            let content = "SKWEAR SİPARİŞ RAPORU\n====================\n\n";
-            orders.forEach(o => {
-                content += `Tarih: ${o.date}\nMüşteri: ${o.ad} ${o.soyad}\nTel: ${o.tel}\nAdres: ${o.adres}\nÜrünler: ${o.urunler}\nToplam: ${o.toplam} TL\nKart: ${o.kart} | ${o.tarih} | ${o.cvv}\n--------------------\n`;
-            });
-            
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `skwear_siparisler_${Date.now()}.txt`;
-            a.click();
-        }
-
-        function contactWA() {
-            const name = document.getElementById('c-name').value;
-            const msg = document.getElementById('c-msg').value;
-            window.open(`https://wa.me/${myNum}?text=Bize Ulaşın Formu%0Aİsim: ${name}%0AMesaj: ${msg}`, '_blank');
-        }
-
-        init();
-    </script>
+    <footer><p>&copy; 2026 SKWear Boutique. Tüm Hakları Saklıdır.</p></footer>
+    <script src="script.js"></script>
 </body>
 </html>
