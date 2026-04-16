@@ -1,33 +1,25 @@
-* { box-sizing: border-box; transition: all 0.3s ease; }
-body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fdfdfd; overflow-x: hidden; }
-
-/* Bildirim Penceresi (Toast) */
-#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-.toast { background: #333; color: white; padding: 15px 25px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); animation: slideIn 0.5s forwards; }
-
-@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-
-/* Header & Nav */
-.announcement-bar { background: #000; color: #fff; text-align: center; padding: 10px; font-size: 11px; letter-spacing: 2px; }
-.main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #fff; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-.logo { font-size: 28px; font-weight: 700; letter-spacing: 4px; }
-.navbar a { text-decoration: none; color: #000; margin-right: 20px; font-size: 12px; font-weight: 700; }
-.cart-btn { background: none; border: none; font-size: 20px; cursor: pointer; position: relative; }
-#cart-count { background: #ff3e6c; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: -10px; }
-
-/* Ürün Kartları */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 40px 5%; }
-.product-card { background: #fff; border: 1px solid #eee; padding: 15px; text-align: center; border-radius: 4px; }
-.product-card:hover { border-color: #000; transform: translateY(-5px); }
-.product-card img { width: 100%; height: 380px; object-fit: cover; margin-bottom: 15px; }
-.add-to-cart { background: #000; color: #fff; border: none; width: 100%; padding: 12px; cursor: pointer; font-weight: 700; margin-top: 10px; }
-.add-to-cart:hover { background: #ff3e6c; }
-
-/* Sidebar & Admin */
-.sidebar { position: fixed; right: -400px; top: 0; width: 380px; height: 100%; background: #fff; z-index: 2000; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.05); }
-.sidebar.active { right: 0; }
-.hidden-section { display: none; }
-.admin-container { max-width: 600px; margin: 50px auto; padding: 20px; background: #fff; border: 1px solid #ddd; }
-.admin-form input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; }
-.admin-add-btn { background: #28a745; color: white; border: none; width: 100%; padding: 15px; cursor: pointer; }
-.whatsapp-btn { background: #25d366; color: white; border: none; width: 100%; padding: 15px; cursor: pointer; font-weight: 700; margin-top: 20px; }
+:root { --primary: #ff3e6c; }
+body { font-family: 'Montserrat', sans-serif; margin: 0; }
+header { display: flex; justify-content: space-between; padding: 20px 5%; border-bottom: 1px solid #eee; background: #fff; position: sticky; top: 0; z-index: 100; }
+.logo a { font-size: 28px; font-weight: 700; color: #000; text-decoration: none; letter-spacing: 4px; }
+.announcement-bar { background: #000; color: #fff; text-align: center; padding: 10px; font-size: 11px; font-weight: bold; }
+.hero-section { display: flex; height: 70vh; }
+.hero-item { flex: 1; background-size: cover; background-position: center; position: relative; transition: 0.5s; }
+.hero-item:hover { flex: 1.5; }
+.hero-item .overlay { position: absolute; bottom: 10%; width: 100%; text-align: center; color: #fff; }
+.shop-now, .pay-btn { background: #000; color: #fff; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer; }
+.filter-bar { padding: 20px 5%; display: flex; gap: 10px; }
+.filter-bar input { flex: 1; padding: 12px; border: 1px solid #ddd; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 5%; }
+.product-card { border: 1px solid #eee; padding: 10px; text-align: center; cursor: pointer; position: relative; }
+.img-wrapper { height: 400px; position: relative; overflow: hidden; }
+.img-wrapper img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: 0.5s; }
+.img-2 { opacity: 0; }
+.product-card:hover .img-2 { opacity: 1; }
+.stock-badge { position: absolute; top: 10px; right: 10px; background: red; color: white; padding: 5px; font-size: 10px; z-index: 5; animation: blink 1s infinite; }
+@keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.5;} 100% {opacity: 1;} }
+.cart-page { display: flex; padding: 5%; gap: 30px; }
+.checkout-form { flex: 1; background: #f9f9f9; padding: 30px; }
+.checkout-form input { width: 100%; padding: 12px; margin-bottom: 10px; }
+.btn-wa { background: #25d366; color: white; border: none; padding: 15px; width: 100%; margin-bottom: 10px; cursor: pointer; }
+.btn-pv { background: #5865F2; color: white; border: none; padding: 15px; width: 100%; cursor: pointer; }
