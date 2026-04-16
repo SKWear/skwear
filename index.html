@@ -3,75 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKWear | Modern Kadın Giyim</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <title>SKWear | Premium Kadın Giyim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="announcement-bar">
-        ✨ 500 TL ÜZERİ ÜCRETSİZ KARGO VE İLK ALIŞVERİŞE %10 İNDİRİM! ✨
-    </div>
+    <div class="announcement-bar">✨ 500 TL ÜZERİ ÜCRETSİZ KARGO! ✨</div>
 
     <header class="main-header">
         <div class="logo">SKWear</div>
         <nav class="navbar">
+            <a href="#">YENİ SEZON</a>
             <a href="#">ELBİSELER</a>
-            <a href="#">ÜST GİYİM</a>
-            <a href="#">ALT GİYİM</a>
-            <a href="#">İÇ GİYİM</a>
+            <a href="#">TRİKO</a>
         </nav>
         <div class="header-icons">
-            <input type="text" placeholder="Ürün ara..." class="search-bar">
-            <button class="cart-btn">🛒 <span class="cart-count">0</span></button>
+            <button onclick="toggleAuth()">👤 Hesap</button>
+            <button class="cart-btn" onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
         </div>
     </header>
 
     <section class="hero-container">
         <div class="hero-item model-1">
             <div class="overlay">
-                <h2>YENİ SEZON</h2>
-                <p>Elbiselerde %30'a varan indirim</p>
+                <h2>LAVİNYA SERİSİ</h2>
                 <button class="shop-btn">KEŞFET</button>
             </div>
         </div>
         <div class="hero-item model-2">
             <div class="overlay">
-                <h2>SOKAK STİLİ</h2>
-                <p>Modern ve Rahat Üst Giyim</p>
+                <h2>GECE ŞIKLIĞI</h2>
                 <button class="shop-btn">KEŞFET</button>
             </div>
         </div>
         <div class="hero-item model-3">
             <div class="overlay">
-                <h2>BASIC KOLEKSİYON</h2>
-                <p>Her Günün Kurtarıcısı</p>
+                <h2>GÜNLÜK COMFORT</h2>
                 <button class="shop-btn">KEŞFET</button>
             </div>
         </div>
     </section>
 
+    <h2 style="text-align:center; margin-top:50px;">ÖNE ÇIKANLAR</h2>
     <section class="product-grid">
         <div class="product-card">
-            <div class="product-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=1000&auto=format&fit=crop" class="main-img">
-                <div class="hover-info">Beden: S, M, L</div>
-            </div>
-            <h3>Saten Mini Elbise</h3>
-            <p class="price"><del>850 TL</del> <span>599 TL</span></p>
-            <div class="order-buttons">
-                <button class="add-to-cart" onclick="alert('Sepete Eklendi!')">Sepete Ekle</button>
-                <a href="https://wa.me/905XXXXXXXXX?text=Merhaba, Saten Mini Elbise ürününü IBAN ile satın almak istiyorum." class="whatsapp-buy">WhatsApp ile Al</a>
-            </div>
+            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=500" alt="Saten Elbise">
+            <h3>Zümrüt Saten Elbise</h3>
+            <p class="price"><del>1.200 TL</del> 899 TL</p>
+            <button class="add-to-cart" onclick="addToCart('Zümrüt Saten Elbise', 899)">SEPETE EKLE</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1539109132381-31a1ee02d0d2?q=80&w=500" alt="Keten Takım">
+            <h3>Keten Sahil Takımı</h3>
+            <p class="price">750 TL</p>
+            <button class="add-to-cart" onclick="addToCart('Keten Sahil Takımı', 750)">SEPETE EKLE</button>
         </div>
     </section>
 
-    <div class="mobile-bottom-nav">
-        <a href="#">🏠 Ana Sayfa</a>
-        <a href="#">🔍 Ara</a>
-        <a href="#">🛍️ Sepet</a>
-        <a href="https://wa.me/905395196448">💬 Destek</a>
+    <div id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Sepetim</h3>
+            <button onclick="toggleCart()">X</button>
+        </div>
+        <div id="cart-items">
+            </div>
+        <div class="sidebar-footer">
+            <h4>Toplam: <span id="total-price">0</span> TL</h4>
+            <button class="checkout-btn" onclick="checkoutWhatsApp()">WhatsApp ile Satın Al</button>
+        </div>
     </div>
 
-</body>
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleAuth()">&times;</span>
+            <h2>Hesap Oluştur / Giriş Yap</h2>
+            <form id="auth-form">
+                <input type="text" placeholder="Ad Soyad" required>
+                <input type="email" placeholder="E-posta" required>
+                <input type="password" placeholder="Şifre" required>
+                <button type="submit" class="auth-submit">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script> </body>
 </html>
