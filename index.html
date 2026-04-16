@@ -3,89 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKWear | Premium Kadın Giyim</title>
+    <title>SKWear | Official Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="announcement-bar">✨ 500 TL ÜZERİ ÜCRETSİZ KARGO! ✨</div>
+    <div id="toast-container"></div>
+
+    <div class="announcement-bar">✨ 500 TL ÜZERİ ÜCRETSİZ KARGO VE ÖZEL İNDİRİMLER ✨</div>
 
     <header class="main-header">
         <div class="logo">SKWear</div>
         <nav class="navbar">
-            <a href="#">YENİ SEZON</a>
-            <a href="#">ELBİSELER</a>
-            <a href="#">TRİKO</a>
+            <a href="#" onclick="showSection('home')">ANA SAYFA</a>
+            <a href="#" onclick="showSection('admin')">ADMİN</a>
         </nav>
         <div class="header-icons">
-            <button onclick="toggleAuth()">👤 Hesap</button>
-            <button class="cart-btn" onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 <span id="cart-count">0</span>
+            </button>
         </div>
     </header>
 
-    <section class="hero-container">
-        <div class="hero-item model-1">
-            <div class="overlay">
-                <h2>LAVİNYA SERİSİ</h2>
-                <button class="shop-btn">KEŞFET</button>
-            </div>
+    <section id="home-section" class="active-section">
+        <div class="hero-simple">
+            <h1>TÜM ÜRÜNLER</h1>
+            <p>SKWear kalitesiyle tarzını yansıt.</p>
         </div>
-        <div class="hero-item model-2">
-            <div class="overlay">
-                <h2>GECE ŞIKLIĞI</h2>
-                <button class="shop-btn">KEŞFET</button>
+        <div class="product-grid" id="main-product-list">
             </div>
-        </div>
-        <div class="hero-item model-3">
-            <div class="overlay">
-                <h2>GÜNLÜK COMFORT</h2>
-                <button class="shop-btn">KEŞFET</button>
-            </div>
-        </div>
     </section>
 
-    <h2 style="text-align:center; margin-top:50px;">ÖNE ÇIKANLAR</h2>
-    <section class="product-grid">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=500" alt="Saten Elbise">
-            <h3>Zümrüt Saten Elbise</h3>
-            <p class="price"><del>1.200 TL</del> 899 TL</p>
-            <button class="add-to-cart" onclick="addToCart('Zümrüt Saten Elbise', 899)">SEPETE EKLE</button>
-        </div>
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1539109132381-31a1ee02d0d2?q=80&w=500" alt="Keten Takım">
-            <h3>Keten Sahil Takımı</h3>
-            <p class="price">750 TL</p>
-            <button class="add-to-cart" onclick="addToCart('Keten Sahil Takımı', 750)">SEPETE EKLE</button>
+    <section id="admin-section" class="hidden-section">
+        <div class="admin-container">
+            <h2>Ürün Yönetim Paneli</h2>
+            <div class="admin-form">
+                <input type="text" id="p-name" placeholder="Ürün Adı">
+                <input type="number" id="p-price" placeholder="Fiyat (TL)">
+                <input type="text" id="p-img" placeholder="Resim Linki (Unsplash vb.)">
+                <button onclick="adminAddProduct()" class="admin-add-btn">ÜRÜNÜ SİTEYE EKLE</button>
+            </div>
+            <div id="admin-product-list"></div>
         </div>
     </section>
 
     <div id="cart-sidebar" class="sidebar">
         <div class="sidebar-header">
-            <h3>Sepetim</h3>
-            <button onclick="toggleCart()">X</button>
+            <h3>SEPETİNİZ</h3>
+            <button onclick="toggleCart()" class="close-cart">✕</button>
         </div>
-        <div id="cart-items">
-            </div>
+        <div id="cart-items-container"></div>
         <div class="sidebar-footer">
-            <h4>Toplam: <span id="total-price">0</span> TL</h4>
-            <button class="checkout-btn" onclick="checkoutWhatsApp()">WhatsApp ile Satın Al</button>
+            <div class="total-row"><span>Toplam:</span> <span id="total-price">0</span> TL</div>
+            <button class="whatsapp-btn" onclick="checkoutWhatsApp()">WHATSAPP İLE SİPARİŞİ TAMAMLA</button>
         </div>
     </div>
 
-    <div id="auth-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="toggleAuth()">&times;</span>
-            <h2>Hesap Oluştur / Giriş Yap</h2>
-            <form id="auth-form">
-                <input type="text" placeholder="Ad Soyad" required>
-                <input type="email" placeholder="E-posta" required>
-                <input type="password" placeholder="Şifre" required>
-                <button type="submit" class="auth-submit">Kayıt Ol</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>
