@@ -1,34 +1,33 @@
-/* ÖNCEKİ STİLLERE EK OLARAK: */
-body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fff; }
+* { box-sizing: border-box; transition: all 0.3s ease; }
+body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fdfdfd; overflow-x: hidden; }
 
-/* SEPET (SIDEBAR) */
-.sidebar { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.3s; z-index: 2000; padding: 20px; }
+/* Bildirim Penceresi (Toast) */
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
+.toast { background: #333; color: white; padding: 15px 25px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); animation: slideIn 0.5s forwards; }
+
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+/* Header & Nav */
+.announcement-bar { background: #000; color: #fff; text-align: center; padding: 10px; font-size: 11px; letter-spacing: 2px; }
+.main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #fff; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
+.logo { font-size: 28px; font-weight: 700; letter-spacing: 4px; }
+.navbar a { text-decoration: none; color: #000; margin-right: 20px; font-size: 12px; font-weight: 700; }
+.cart-btn { background: none; border: none; font-size: 20px; cursor: pointer; position: relative; }
+#cart-count { background: #ff3e6c; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: -10px; }
+
+/* Ürün Kartları */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 40px 5%; }
+.product-card { background: #fff; border: 1px solid #eee; padding: 15px; text-align: center; border-radius: 4px; }
+.product-card:hover { border-color: #000; transform: translateY(-5px); }
+.product-card img { width: 100%; height: 380px; object-fit: cover; margin-bottom: 15px; }
+.add-to-cart { background: #000; color: #fff; border: none; width: 100%; padding: 12px; cursor: pointer; font-weight: 700; margin-top: 10px; }
+.add-to-cart:hover { background: #ff3e6c; }
+
+/* Sidebar & Admin */
+.sidebar { position: fixed; right: -400px; top: 0; width: 380px; height: 100%; background: #fff; z-index: 2000; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.05); }
 .sidebar.active { right: 0; }
-.sidebar-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
-
-/* HESAP (MODAL) */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; }
-.modal-content { background: white; width: 400px; margin: 100px auto; padding: 30px; position: relative; border-radius: 10px; }
-.close { position: absolute; top: 10px; right: 20px; cursor: pointer; font-size: 25px; }
-
-/* FORM ELEMANLARI */
-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; }
-.auth-submit { width: 100%; background: #ff3e6c; color: white; border: none; padding: 12px; cursor: pointer; }
-
-/* DİĞERLERİ */
-.announcement-bar { background: #ff3e6c; color: white; text-align: center; padding: 10px; font-size: 12px; font-weight: bold; }
-.main-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: white; z-index: 1000; }
-.logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
-.navbar a { text-decoration: none; color: #333; margin: 0 15px; font-size: 13px; font-weight: bold; }
-.hero-container { display: flex; height: 70vh; }
-.hero-item { flex: 1; position: relative; background-size: cover; background-position: center; }
-.model-1 { background-image: url('https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600'); }
-.model-2 { background-image: url('https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=600'); }
-.model-3 { background-image: url('https://images.unsplash.com/photo-1529139513402-120a2d3da754?q=80&w=600'); }
-.overlay { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center; }
-.shop-btn { background: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
-
-.product-grid { display: flex; gap: 20px; padding: 50px 5%; justify-content: center; }
-.product-card { width: 250px; text-align: center; border: 1px solid #f0f0f0; padding: 10px; }
-.product-card img { width: 100%; height: 350px; object-fit: cover; }
-.add-to-cart { background: #000; color: #fff; width: 100%; padding: 10px; border: none; cursor: pointer; margin-top: 10px; }
+.hidden-section { display: none; }
+.admin-container { max-width: 600px; margin: 50px auto; padding: 20px; background: #fff; border: 1px solid #ddd; }
+.admin-form input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; }
+.admin-add-btn { background: #28a745; color: white; border: none; width: 100%; padding: 15px; cursor: pointer; }
+.whatsapp-btn { background: #25d366; color: white; border: none; width: 100%; padding: 15px; cursor: pointer; font-weight: 700; margin-top: 20px; }
